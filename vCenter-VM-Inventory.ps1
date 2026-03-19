@@ -1,17 +1,19 @@
-﻿# --- настройки ---
-$vcenter = "vcnl.valhalla.local"
+﻿#This script allows to export in CSV format  lsit of  VMs from VMWARE  vCenter
+
+# --- Variables ---
+$vcenter = "VC.Domain.Example" #<=Set here your Vcetner DNS name or IP
 $path = [Environment]::GetFolderPath("MyDocuments") + "\vm_grouped_report.csv"
 
-# --- загрузка PowerCLI ---
+# --- Import  Module of ESXi.PowerCLI ---
 Import-Module VMware.PowerCLI -ErrorAction Stop
 
-# --- игнор SSL ---
+# --- Ignore  messages about possible SSL problems ---
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
-# --- логин ---
+# --- Login ---
 Connect-VIServer $vcenter
 
-# --- сбор данных ---
+# --- Data  Collecting ---
 $vms = Get-VM | ForEach-Object {
     $vm = $_
     $view = Get-View $vm.Id
@@ -27,20 +29,20 @@ $vms = Get-VM | ForEach-Object {
     }
 }
 
-# --- сортировка и группы ---
+# --- Sorting ---
 $poweredOff = $vms | Where-Object { $_.PowerState -eq "PoweredOff" } | Sort-Object Name
 $poweredOn  = $vms | Where-Object { $_.PowerState -eq "PoweredOn" }  | Sort-Object Name
 
-# --- отчёт ---
+# --- Report ---
 $report = @()
 
-# Сначала выключенные
+# PoweredOFF State first
 $report += $poweredOff
 
-# Потом включённые
+# PoweredON State second 
 $report += $poweredOn
 
-# Потом итоги в конце: OFF -> ON -> GRAND TOTAL
+# Total calculation at the  end:  OFF -> ON -> GRAND TOTAL
 $report += [PSCustomObject]@{
     Name          = "TOTAL PoweredOff"
     PowerState    = ""
@@ -71,7 +73,7 @@ $report += [PSCustomObject]@{
     VMHost        = ""
 }
 
-# --- экспорт ---
+# --- Export ---
 $report | Export-Csv $path -NoTypeInformation -Encoding utf8BOM -UseCulture
 
 Write-Host "Готово: $path" -ForegroundColor Green

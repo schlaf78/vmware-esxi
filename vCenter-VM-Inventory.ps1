@@ -1,4 +1,4 @@
-﻿#This script allows to export in CSV format  lsit of  VMs from VMWARE  vCenter
+﻿#This script allows to export in CSV format  list of  VMs from VMWARE  vCenter
 
 # --- Variables ---
 $vcenter = "VC.Domain.Example" #<=Set here your Vcetner DNS name or IP

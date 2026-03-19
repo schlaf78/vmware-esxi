@@ -1,0 +1,14 @@
+stages:
+  - mirror
+
+sync_to_github:
+  stage: mirror
+  only:
+    - main
+  script:
+    - git config --global user.name "GitLab CI"
+    - git config --global user.email "ci@example.com"
+    - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${CI_PROJECT_NAME}.git
+    - git checkout main || git checkout -b main
+    - git push --force github main
+    - git push --tags github

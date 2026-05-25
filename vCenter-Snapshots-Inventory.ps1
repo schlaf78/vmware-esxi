@@ -1,5 +1,8 @@
-﻿# --- configuration ---
-$vcenter = "vcnl.valhalla.local"
+# --- configuration ---
+#VCENTER NAME IS HARDCODED HERE! CHANGE BEFORE USE
+#=========
+$vcenter = "vcenter.mydomain.local"
+#=========
 $path = [Environment]::GetFolderPath("MyDocuments") + "\vm_snapshots_report.tsv"
 
 # --- load PowerCLI module ---

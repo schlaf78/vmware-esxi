@@ -1,7 +1,10 @@
-﻿#This script allows to export in CSV format  list of  Datastores from VMWARE  vCenter
+#This script allows to export in CSV format  list of  Datastores from VMWARE  vCenter
 
 # --- настройки ---
+#=========VCENTER NAME IS HARDCODED BELOW! CHANGE IT BEFPRE RUN!
+#=========
 $vcenter = "VC.Domain.Example" #<=Set here your Vcetner DNS name or IP
+#=========
 $path = [Environment]::GetFolderPath("MyDocuments") + "\datastores_report.csv"
 
 # --- Import  Module of ESXi.PowerCLI ---

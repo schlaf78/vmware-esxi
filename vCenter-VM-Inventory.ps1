@@ -1,7 +1,10 @@
-﻿#This script allows to export in CSV format  list of  VMs from VMWARE  vCenter
+#This script allows to export in CSV format  list of  VMs from VMWARE  vCenter
 
 # --- Variables ---
+#=========VCENTER NAME IS HARDCODED BEKLOW! CHANGE IT FTO YOURS
+#=========
 $vcenter = "VC.Domain.Example" #<=Set here your Vcetner DNS name or IP
+#=========
 $path = [Environment]::GetFolderPath("MyDocuments") + "\vm_grouped_report.csv"
 
 # --- Import  Module of ESXi.PowerCLI ---
